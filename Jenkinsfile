@@ -17,7 +17,7 @@ pipeline {
         stage('Deploy') {
     	   steps {
                sh '''
-               cd /home/sreehari/sample-node-ci
+               cd $WORKSPACE
                npm install
                pm2 stop server || true
                pm2 start server.js --name server
