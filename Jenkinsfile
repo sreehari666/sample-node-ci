@@ -15,10 +15,16 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                sh 'pm2 restart sample-node-ci || pm2 start server.js --name sample-node-ci'
-            }
-        }
+    	   steps {
+               sh '''
+               cd /home/sreehari/sample-node-ci
+               npm install
+               pm2 stop server || true
+               pm2 start server.js --name server
+               pm2 save
+               '''
+    	    }
+	}
     }
 }
   
