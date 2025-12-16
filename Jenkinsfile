@@ -1,11 +1,15 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)   // 🔥 VERY IMPORTANT
+    }
+
     stages {
 
         stage('Checkout Latest Code') {
             steps {
-                cleanWs() // 🔥 VERY IMPORTANT
+                cleanWs()
                 git branch: 'main',
                     url: 'https://github.com/sreehari666/sample-node-ci.git'
             }
