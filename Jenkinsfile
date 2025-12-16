@@ -20,7 +20,7 @@ pipeline {
                cd $WORKSPACE
                npm install
                pm2 stop server || true
-               pm2 start server.js --name server
+               pm2 start server.js 
                pm2 save
                '''
     	    }
