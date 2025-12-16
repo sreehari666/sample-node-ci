@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Checkout Latest Code') {
+            steps {
+                cleanWs() // 🔥 VERY IMPORTANT
+                git branch: 'main',
+                    url: 'https://github.com/sreehari666/sample-node-ci.git'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -10,21 +19,18 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'npm test || true'
+                sh 'npm test'
             }
         }
 
         stage('Deploy') {
-    	   steps {
-               sh '''
-               cd $WORKSPACE
-               npm install
-               pm2 stop server || true
-               pm2 start server.js 
-               pm2 save
-               '''
-    	    }
-	}
+            steps {
+                sh '''
+                pm2 delete server || true
+                pm2 start server.js --name server
+                pm2 save
+                '''
+            }
+        }
     }
 }
-  
