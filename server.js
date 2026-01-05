@@ -1,8 +1,11 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
 
+// Serve index.html on root
 app.get("/", (req, res) => {
-    res.send("🚀 CI/CD Pipeline working via Jenkins on WSL2!,Updated,12336767");
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 app.listen(3000, () => {
